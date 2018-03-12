@@ -6,7 +6,7 @@
     <string name="action_insert_dummy_data">Insert Dummy Data</string>
 
     <!-- Label for overflow menu option that deletes all pet data in the app [CHAR LIMIT=20] -->
-    <string name="action_delete_all_entries">Delete All Pets</string>
+    <string name="action_delete_all_entries">Delete All</string>
 
     <!-- Title text for the empty view, which describes the empty dog house image [CHAR LIMIT=50] -->
     <string name="empty_view_title_text">It\'s a bit lonely here&#8230;</string>
@@ -93,5 +93,5 @@
     <string name="gender_female">Female</string>
 
     <!-- Label for the pet's breed if the breed is unknown [CHAR LIMIT=20] -->
-    <string name="unknown_breed">Unknown breed</string>
+    <string name="unknown_desc">No description</string>
 </resources>
