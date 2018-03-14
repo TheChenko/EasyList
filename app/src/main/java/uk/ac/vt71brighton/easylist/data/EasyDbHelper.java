@@ -41,7 +41,7 @@ public class EasyDbHelper extends SQLiteOpenHelper {
      */
     @Override
     public void onCreate(SQLiteDatabase db) {
-        // Create a String that contains the SQL statement to create the pets table
+        // Create a String that contains the SQL statement to create the items table
         String SQL_CREATE_PETS_TABLE =  "CREATE TABLE " + EListEntry.TABLE_NAME + " ("
                 + EListEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + EListEntry.COLUMN_EL_NAME + " TEXT NOT NULL, "

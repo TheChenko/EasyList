@@ -23,10 +23,10 @@ public class EasyProvider extends ContentProvider {
     /** Tag for the log messages */
     public static final String LOG_TAG = EasyProvider.class.getSimpleName();
 
-    /** URI matcher code for the content URI for the pets table */
+    /** URI matcher code for the content URI for the lists table */
     private static final int EL = 100;
 
-    /** URI matcher code for the content URI for a single pet in the pets table */
+    /** URI matcher code for the content URI for a single item in the lists table */
     private static final int EL_ID = 101;
 
     /**
@@ -42,18 +42,18 @@ public class EasyProvider extends ContentProvider {
         // should recognize. All paths added to the UriMatcher have a corresponding code to return
         // when a match is found.
 
-        // The content URI of the form "content://com.example.android.pets/pets" will map to the
-        // integer code {@link #PETS}. This URI is used to provide access to MULTIPLE rows
-        // of the pets table.
+        // The content URI of the form "content://uk.ac.vt71brighton./elist" will map to the
+        // integer code {@link #EL}. This URI is used to provide access to MULTIPLE rows
+        // of the items table.
         sUriMatcher.addURI(EasyContract.CONTENT_AUTHORITY, EasyContract.PATH_EList, EL);
 
-        // The content URI of the form "content://com.example.android.pets/pets/#" will map to the
-        // integer code {@link #PET_ID}. This URI is used to provide access to ONE single row
-        // of the pets table.
+        // The content URI of the form "content://uk.ac.vt71brighton./elist/#" will map to the
+        // integer code {@link #EL_ID}. This URI is used to provide access to ONE single row
+        // of the elist table.
         //
         // In this case, the "#" wildcard is used where "#" can be substituted for an integer.
-        // For example, "content://com.example.android.pets/pets/3" matches, but
-        // "content://com.example.android.pets/pets" (without a number at the end) doesn't match.
+        // For example, "content://uk.ac.vt71brighton./elist/3" matches, but
+        // "content://uk.ac.vt71brighton./elist" (without a number at the end) doesn't match.
         sUriMatcher.addURI(EasyContract.CONTENT_AUTHORITY, EasyContract.PATH_EList + "/#", EL_ID);
     }
 
@@ -79,15 +79,15 @@ public class EasyProvider extends ContentProvider {
         int match = sUriMatcher.match(uri);
         switch (match) {
             case EL:
-                // For the PETS code, query the pets table directly with the given
+                // For the EL code, query the elist table directly with the given
                 // projection, selection, selection arguments, and sort order. The cursor
-                // could contain multiple rows of the pets table.
+                // could contain multiple rows of the elist table.
                 cursor = database.query(EListEntry.TABLE_NAME, projection, selection, selectionArgs,
                         null, null, sortOrder);
                 break;
             case EL_ID:
-                // For the PET_ID code, extract out the ID from the URI.
-                // For an example URI such as "content://com.example.android.pets/pets/3",
+                // For the EL_ID code, extract out the ID from the URI.
+                // For an example URI such as "content://uk.ac.vt71brighton./elist/3",
                 // the selection will be "_id=?" and the selection argument will be a
                 // String array containing the actual ID of 3 in this case.
                 //
@@ -97,7 +97,7 @@ public class EasyProvider extends ContentProvider {
                 selection = EListEntry._ID + "=?";
                 selectionArgs = new String[] { String.valueOf(ContentUris.parseId(uri)) };
 
-                // This will perform a query on the pets table where the _id equals 3 to return a
+                // This will perform a query on the elist table where the _id equals 3 to return a
                 // Cursor containing that row of the table.
                 cursor = database.query(EListEntry.TABLE_NAME, projection, selection, selectionArgs,
                         null, null, sortOrder);
@@ -120,41 +120,41 @@ public class EasyProvider extends ContentProvider {
         final int match = sUriMatcher.match(uri);
         switch (match) {
             case EL:
-                return insertPet(uri, contentValues);
+                return insertItem(uri, contentValues);
             default:
                 throw new IllegalArgumentException("Insertion is not supported for " + uri);
         }
     }
 
     /**
-     * Insert a pet into the database with the given content values. Return the new content URI
+     * Insert an item into the database with the given content values. Return the new content URI
      * for that specific row in the database.
      */
-    private Uri insertPet(Uri uri, ContentValues values) {
+    private Uri insertItem(Uri uri, ContentValues values) {
         // Check that the name is not null
         String name = values.getAsString(EListEntry.COLUMN_EL_NAME);
         if (name == null) {
-            throw new IllegalArgumentException("Pet requires a name");
+            throw new IllegalArgumentException("Item requires a name");
         }
 
         // Check that the gender is valid
         Integer gender = values.getAsInteger(EListEntry.COLUMN_EL_GENDER);
         if (gender == null || !EListEntry.isValidGender(gender)) {
-            throw new IllegalArgumentException("Pet requires valid gender");
+            throw new IllegalArgumentException("Item requires valid gender");
         }
 
         // If the weight is provided, check that it's greater than or equal to 0 kg
         Integer weight = values.getAsInteger(EListEntry.COLUMN_EL_AGE);
         if (weight != null && weight < 0) {
-            throw new IllegalArgumentException("Pet requires valid weight");
+            throw new IllegalArgumentException("Item requires valid age");
         }
 
-        // No need to check the breed, any value is valid (including null).
+        // No need to check the description, any value is valid (including null).
 
-        // Get writeable database
+        // Get writable database
         SQLiteDatabase database = mDbHelper.getWritableDatabase();
 
-        // Insert the new pet with the given values
+        // Insert the new item with the given values
         long id = database.insert(EListEntry.TABLE_NAME, null, values);
         // If the ID is -1, then the insertion failed. Log an error and return null.
         if (id == -1) {
@@ -162,7 +162,7 @@ public class EasyProvider extends ContentProvider {
             return null;
         }
 
-        // Notify all listeners that the data has changed for the pet content URI
+        // Notify all listeners that the data has changed for the item content URI
         getContext().getContentResolver().notifyChange(uri, null);
 
         // Return the new URI with the ID (of the newly inserted row) appended at the end
@@ -175,61 +175,61 @@ public class EasyProvider extends ContentProvider {
         final int match = sUriMatcher.match(uri);
         switch (match) {
             case EL:
-                return updatePet(uri, contentValues, selection, selectionArgs);
+                return updateItem(uri, contentValues, selection, selectionArgs);
             case EL_ID:
-                // For the PET_ID code, extract out the ID from the URI,
+                // For the EL_ID code, extract out the ID from the URI,
                 // so we know which row to update. Selection will be "_id=?" and selection
                 // arguments will be a String array containing the actual ID.
                 selection = EListEntry._ID + "=?";
                 selectionArgs = new String[] { String.valueOf(ContentUris.parseId(uri)) };
-                return updatePet(uri, contentValues, selection, selectionArgs);
+                return updateItem(uri, contentValues, selection, selectionArgs);
             default:
                 throw new IllegalArgumentException("Update is not supported for " + uri);
         }
     }
 
     /**
-     * Update pets in the database with the given content values. Apply the changes to the rows
-     * specified in the selection and selection arguments (which could be 0 or 1 or more pets).
+     * Update item in the database with the given content values. Apply the changes to the rows
+     * specified in the selection and selection arguments (which could be 0 or 1 or more items).
      * Return the number of rows that were successfully updated.
      */
-    private int updatePet(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
-        // If the {@link PetEntry#COLUMN_PET_NAME} key is present,
+    private int updateItem(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
+        // If the {@link EListEntry.COLUMN_EL_NAME} key is present,
         // check that the name value is not null.
         if (values.containsKey(EListEntry.COLUMN_EL_NAME)) {
             String name = values.getAsString(EListEntry.COLUMN_EL_NAME);
             if (name == null) {
-                throw new IllegalArgumentException("Pet requires a name");
+                throw new IllegalArgumentException("Item requires a name");
             }
         }
 
-        // If the {@link PetEntry#COLUMN_PET_GENDER} key is present,
+        // If the {@link COLUMN_EL_GENDER} key is present,
         // check that the gender value is valid.
         if (values.containsKey(EListEntry.COLUMN_EL_GENDER)) {
             Integer gender = values.getAsInteger(EListEntry.COLUMN_EL_GENDER);
             if (gender == null || !EListEntry.isValidGender(gender)) {
-                throw new IllegalArgumentException("Pet requires valid gender");
+                throw new IllegalArgumentException("Item requires valid gender");
             }
         }
 
-        // If the {@link PetEntry#COLUMN_PET_WEIGHT} key is present,
+        // If the {@link EListEntry.COLUMN_EL_AGE} key is present,
         // check that the weight value is valid.
         if (values.containsKey(EListEntry.COLUMN_EL_AGE)) {
             // Check that the weight is greater than or equal to 0 kg
             Integer weight = values.getAsInteger(EListEntry.COLUMN_EL_AGE);
             if (weight != null && weight < 0) {
-                throw new IllegalArgumentException("Pet requires valid weight");
+                throw new IllegalArgumentException("Item requires valid age");
             }
         }
 
-        // No need to check the breed, any value is valid (including null).
+        // No need to check the description, any value is valid (including null).
 
         // If there are no values to update, then don't try to update the database
         if (values.size() == 0) {
             return 0;
         }
 
-        // Otherwise, get writeable database to update the data
+        // Otherwise, get writable database to update the data
         SQLiteDatabase database = mDbHelper.getWritableDatabase();
 
         // Perform the update on the database and get the number of rows affected
@@ -247,7 +247,7 @@ public class EasyProvider extends ContentProvider {
 
     @Override
     public int delete(Uri uri, String selection, String[] selectionArgs) {
-        // Get writeable database
+        // Get writable database
         SQLiteDatabase database = mDbHelper.getWritableDatabase();
 
         // Track the number of rows that were deleted

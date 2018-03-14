@@ -30,42 +30,42 @@ import android.widget.Toast;
 import uk.ac.vt71brighton.easylist.data.EasyContract.EListEntry;
 
 /**
- * Allows user to create a new pet or edit an existing one.
+ * Allows user to create a new item or edit an existing one.
  */
 public class EditorActivity extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<Cursor> {
 
-    /** Identifier for the pet data loader */
+    /** Identifier for the item data loader */
     private static final int EXISTING_EL_LOADER = 0;
 
-    /** Content URI for the existing pet (null if it's a new pet) */
+    /** Content URI for the existing item (null if it's a new item) */
     private Uri mCurrentELUri;
 
-    /** EditText field to enter the pet's name */
+    /** EditText field to enter the item name */
     private EditText mNameEditText;
 
-    /** EditText field to enter the pet's breed */
+    /** EditText field to enter the item description */
     private EditText mDescEditText;
 
-    /** EditText field to enter the pet's weight */
+    /** EditText field to enter the item age */
     private EditText mAgeEditText;
 
-    /** EditText field to enter the pet's gender */
+    /** EditText field to enter the item gender */
     private Spinner mGenderSpinner;
 
     /**
-     * Gender of the pet. The possible valid values are in the PetContract.java file:
+     * Gender of the item. The possible valid values are in the EasyContract.java file:
      * {@link EListEntry#GENDER_UNKNOWN}, {@link EListEntry#GENDER_MALE}, or
      * {@link EListEntry#GENDER_FEMALE}.
      */
     private int mGender = EListEntry.GENDER_UNKNOWN;
 
-    /** Boolean flag that keeps track of whether the pet has been edited (true) or not (false) */
+    /** Boolean flag that keeps track of whether the item has been edited (true) or not (false) */
     private boolean mELHasChanged = false;
 
     /**
      * OnTouchListener that listens for any user touches on a View, implying that they are modifying
-     * the view, and we change the mPetHasChanged boolean to true.
+     * the view, and we change the mELHasChanged boolean to true.
      */
     private View.OnTouchListener mTouchListener = new View.OnTouchListener() {
         @Override
@@ -81,32 +81,32 @@ public class EditorActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_editor);
 
         // Examine the intent that was used to launch this activity,
-        // in order to figure out if we're creating a new pet or editing an existing one.
+        // in order to figure out if we're creating a new item or editing an existing one.
         Intent intent = getIntent();
         mCurrentELUri = intent.getData();
 
-        // If the intent DOES NOT contain a pet content URI, then we know that we are
-        // creating a new pet.
+        // If the intent DOES NOT contain a item content URI, then we know that we are
+        // creating a new item.
         if (mCurrentELUri == null) {
-            // This is a new pet, so change the app bar to say "Add a Pet"
-            setTitle(getString(R.string.editor_activity_title_new_pet));
+            // This is a new item, so change the app bar to say "Add a item"
+            setTitle(getString(R.string.editor_activity_title_new_item));
 
             // Invalidate the options menu, so the "Delete" menu option can be hidden.
-            // (It doesn't make sense to delete a pet that hasn't been created yet.)
+            // (It doesn't make sense to delete an item that hasn't been created yet.)
             invalidateOptionsMenu();
         } else {
-            // Otherwise this is an existing pet, so change app bar to say "Edit Pet"
-            setTitle(getString(R.string.editor_activity_title_edit_pet));
+            // Otherwise this is an existing item, so change app bar to say "Edit item"
+            setTitle(getString(R.string.editor_activity_title_edit));
 
-            // Initialize a loader to read the pet data from the database
+            // Initialize a loader to read the item data from the database
             // and display the current values in the editor
             getLoaderManager().initLoader(EXISTING_EL_LOADER, null, this);
         }
 
         // Find all relevant views that we will need to read user input from
-        mNameEditText = findViewById(R.id.edit_pet_name);
-        mDescEditText = findViewById(R.id.edit_pet_breed);
-        mAgeEditText = findViewById(R.id.edit_pet_weight);
+        mNameEditText = findViewById(R.id.edit_name);
+        mDescEditText = findViewById(R.id.edit_desc);
+        mAgeEditText = findViewById(R.id.edit_age);
         mGenderSpinner = findViewById(R.id.spinner_gender);
 
         // Setup OnTouchListeners on all the input fields, so we can determine if the user
@@ -121,7 +121,7 @@ public class EditorActivity extends AppCompatActivity implements
     }
 
     /**
-     * Setup the dropdown spinner that allows the user to select the gender of the pet.
+     * Setup the dropdown spinner that allows the user to select the gender of the item.
      */
     private void setupSpinner() {
         // Create adapter for spinner. The list options are from the String array it will use
@@ -160,7 +160,7 @@ public class EditorActivity extends AppCompatActivity implements
     }
 
     /**
-     * Get user input from editor and save pet into database.
+     * Get user input from editor and save item into database.
      */
     private void savePet() {
         // Read from input fields
@@ -169,18 +169,18 @@ public class EditorActivity extends AppCompatActivity implements
         String descString = mDescEditText.getText().toString().trim();
         String ageString = mAgeEditText.getText().toString().trim();
 
-        // Check if this is supposed to be a new pet
+        // Check if this is supposed to be a new item
         // and check if all the fields in the editor are blank
         if (mCurrentELUri == null &&
                 TextUtils.isEmpty(nameString) && TextUtils.isEmpty(descString) &&
                 TextUtils.isEmpty(ageString) && mGender == EListEntry.GENDER_UNKNOWN) {
-            // Since no fields were modified, we can return early without creating a new pet.
+            // Since no fields were modified, we can return early without creating a new item.
             // No need to create ContentValues and no need to do any ContentProvider operations.
             return;
         }
 
         // Create a ContentValues object where column names are the keys,
-        // and pet attributes from the editor are the values.
+        // and item attributes from the editor are the values.
         ContentValues values = new ContentValues();
         values.put(EListEntry.COLUMN_EL_NAME, nameString);
         values.put(EListEntry.COLUMN_EL_DESC, descString);
@@ -193,37 +193,37 @@ public class EditorActivity extends AppCompatActivity implements
         }
         values.put(EListEntry.COLUMN_EL_AGE, weight);
 
-        // Determine if this is a new or existing pet by checking if mCurrentPetUri is null or not
+        // Determine if this is a new or existing item by checking if mCurrentELUri is null or not
         if (mCurrentELUri == null) {
-            // This is a NEW pet, so insert a new pet into the provider,
-            // returning the content URI for the new pet.
+            // This is a NEW item, so insert a new item into the provider,
+            // returning the content URI for the new item.
             Uri newUri = getContentResolver().insert(EListEntry.CONTENT_URI, values);
 
             // Show a toast message depending on whether or not the insertion was successful.
             if (newUri == null) {
                 // If the new content URI is null, then there was an error with insertion.
-                Toast.makeText(this, getString(R.string.editor_insert_pet_failed),
+                Toast.makeText(this, getString(R.string.editor_insert_failed),
                         Toast.LENGTH_SHORT).show();
             } else {
                 // Otherwise, the insertion was successful and we can display a toast.
-                Toast.makeText(this, getString(R.string.editor_insert_pet_successful),
+                Toast.makeText(this, getString(R.string.editor_insert_successful),
                         Toast.LENGTH_SHORT).show();
             }
         } else {
-            // Otherwise this is an EXISTING pet, so update the pet with content URI: mCurrentPetUri
+            // Otherwise this is an EXISTING item, so update the item with content URI: mCurrentELUri
             // and pass in the new ContentValues. Pass in null for the selection and selection args
-            // because mCurrentPetUri will already identify the correct row in the database that
+            // because mCurrentELUri will already identify the correct row in the database that
             // we want to modify.
             int rowsAffected = getContentResolver().update(mCurrentELUri, values, null, null);
 
             // Show a toast message depending on whether or not the update was successful.
             if (rowsAffected == 0) {
                 // If no rows were affected, then there was an error with the update.
-                Toast.makeText(this, getString(R.string.editor_update_pet_failed),
+                Toast.makeText(this, getString(R.string.editor_update_failed),
                         Toast.LENGTH_SHORT).show();
             } else {
                 // Otherwise, the update was successful and we can display a toast.
-                Toast.makeText(this, getString(R.string.editor_update_pet_successful),
+                Toast.makeText(this, getString(R.string.editor_update_successful),
                         Toast.LENGTH_SHORT).show();
             }
         }
@@ -244,7 +244,7 @@ public class EditorActivity extends AppCompatActivity implements
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
-        // If this is a new pet, hide the "Delete" menu item.
+        // If this is a new item, hide the "Delete" menu item.
         if (mCurrentELUri == null) {
             MenuItem menuItem = menu.findItem(R.id.action_delete);
             menuItem.setVisible(false);
@@ -258,7 +258,7 @@ public class EditorActivity extends AppCompatActivity implements
         switch (item.getItemId()) {
             // Respond to a click on the "Save" menu option
             case R.id.action_save:
-                // Save pet to database
+                // Save item to database
                 savePet();
                 // Exit activity
                 finish();
@@ -270,8 +270,8 @@ public class EditorActivity extends AppCompatActivity implements
                 return true;
             // Respond to a click on the "Up" arrow button in the app bar
             case android.R.id.home:
-                // If the pet hasn't changed, continue with navigating up to parent activity
-                // which is the {@link CatalogActivity}.
+                // If the item hasn't changed, continue with navigating up to parent activity
+                // which is the {@link MainActivity}.
                 if (!mELHasChanged) {
                     NavUtils.navigateUpFromSameTask(EditorActivity.this);
                     return true;
@@ -301,7 +301,7 @@ public class EditorActivity extends AppCompatActivity implements
      */
     @Override
     public void onBackPressed() {
-        // If the pet hasn't changed, continue with handling back button press
+        // If the item hasn't changed, continue with handling back button press
         if (!mELHasChanged) {
             super.onBackPressed();
             return;
@@ -324,8 +324,8 @@ public class EditorActivity extends AppCompatActivity implements
 
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
-        // Since the editor shows all pet attributes, define a projection that contains
-        // all columns from the pet table
+        // Since the editor shows all item attributes, define a projection that contains
+        // all columns from the elist table
         String[] projection = {
                 EListEntry._ID,
                 EListEntry.COLUMN_EL_NAME,
@@ -335,7 +335,7 @@ public class EditorActivity extends AppCompatActivity implements
 
         // This loader will execute the ContentProvider's query method on a background thread
         return new CursorLoader(this,   // Parent activity context
-                mCurrentELUri,         // Query the content URI for the current pet
+                mCurrentELUri,         // Query the content URI for the current item
                 projection,             // Columns to include in the resulting Cursor
                 null,                   // No selection clause
                 null,                   // No selection arguments
@@ -352,7 +352,7 @@ public class EditorActivity extends AppCompatActivity implements
         // Proceed with moving to the first row of the cursor and reading data from it
         // (This should be the only row in the cursor)
         if (cursor.moveToFirst()) {
-            // Find the columns of pet attributes that we're interested in
+            // Find the columns of item attributes that we're interested in
             int nameColumnIndex = cursor.getColumnIndex(EListEntry.COLUMN_EL_NAME);
             int breedColumnIndex = cursor.getColumnIndex(EListEntry.COLUMN_EL_DESC);
             int genderColumnIndex = cursor.getColumnIndex(EListEntry.COLUMN_EL_GENDER);
@@ -405,14 +405,14 @@ public class EditorActivity extends AppCompatActivity implements
     private void showUnsavedChangesDialog(
             DialogInterface.OnClickListener discardButtonClickListener) {
         // Create an AlertDialog.Builder and set the message, and click listeners
-        // for the postivie and negative buttons on the dialog.
+        // for the positive and negative buttons on the dialog.
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(R.string.unsaved_changes_dialog_msg);
         builder.setPositiveButton(R.string.discard, discardButtonClickListener);
         builder.setNegativeButton(R.string.keep_editing, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 // User clicked the "Keep editing" button, so dismiss the dialog
-                // and continue editing the pet.
+                // and continue editing the item.
                 if (dialog != null) {
                     dialog.dismiss();
                 }
@@ -425,23 +425,23 @@ public class EditorActivity extends AppCompatActivity implements
     }
 
     /**
-     * Prompt the user to confirm that they want to delete this pet.
+     * Prompt the user to confirm that they want to delete this item.
      */
     private void showDeleteConfirmationDialog() {
         // Create an AlertDialog.Builder and set the message, and click listeners
-        // for the postivie and negative buttons on the dialog.
+        // for the positive and negative buttons on the dialog.
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(R.string.delete_dialog_msg);
         builder.setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                // User clicked the "Delete" button, so delete the pet.
-                deletePet();
+                // User clicked the "Delete" button, so delete the item.
+                deleteItem();
             }
         });
         builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 // User clicked the "Cancel" button, so dismiss the dialog
-                // and continue editing the pet.
+                // and continue editing the item.
                 if (dialog != null) {
                     dialog.dismiss();
                 }
@@ -454,24 +454,24 @@ public class EditorActivity extends AppCompatActivity implements
     }
 
     /**
-     * Perform the deletion of the pet in the database.
+     * Perform the deletion of the item in the database.
      */
-    private void deletePet() {
-        // Only perform the delete if this is an existing pet.
+    private void deleteItem() {
+        // Only perform the delete if this is an existing item.
         if (mCurrentELUri != null) {
-            // Call the ContentResolver to delete the pet at the given content URI.
-            // Pass in null for the selection and selection args because the mCurrentPetUri
-            // content URI already identifies the pet that we want.
+            // Call the ContentResolver to delete the item at the given content URI.
+            // Pass in null for the selection and selection args because the mCurrentELUri
+            // content URI already identifies the item that we want.
             int rowsDeleted = getContentResolver().delete(mCurrentELUri, null, null);
 
             // Show a toast message depending on whether or not the delete was successful.
             if (rowsDeleted == 0) {
                 // If no rows were deleted, then there was an error with the delete.
-                Toast.makeText(this, getString(R.string.editor_delete_pet_failed),
+                Toast.makeText(this, getString(R.string.editor_delete_failed),
                         Toast.LENGTH_SHORT).show();
             } else {
                 // Otherwise, the delete was successful and we can display a toast.
-                Toast.makeText(this, getString(R.string.editor_delete_pet_successful),
+                Toast.makeText(this, getString(R.string.editor_delete_successful),
                         Toast.LENGTH_SHORT).show();
             }
         }
