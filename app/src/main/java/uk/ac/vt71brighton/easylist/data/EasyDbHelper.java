@@ -13,7 +13,7 @@ import uk.ac.vt71brighton.easylist.data.EasyContract.EListEntry;
  */
 
 /**
- * Database helper for Pets app. Manages database creation and version management.
+ * Database helper for the app. Manages database creation and version management.
  */
 public class EasyDbHelper extends SQLiteOpenHelper {
 

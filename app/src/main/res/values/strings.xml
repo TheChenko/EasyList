@@ -71,14 +71,38 @@
     <!-- Label for measurement information in the editor [CHAR LIMIT=30] -->
     <string name="category_age">Age</string>
 
+    <!-- Label for allergies information in the editor [CHAR LIMIT=30] -->
+    <string name="category_allergies">Allergies</string>
+
+    <!-- Label for Nationality information in the editor [CHAR LIMIT=30] -->
+    <string name="category_nationality">Nationality</string>
+
+    <!-- Label for Language information in the editor [CHAR LIMIT=30] -->
+    <string name="category_language">Language spoken</string>
+
+    <!-- Label for contact information in the editor [CHAR LIMIT=30] -->
+    <string name="category_contact">Contact number</string>
+
     <!-- Text hint for name field in the editor [CHAR LIMIT=30] -->
-    <string name="hint_item_name">Name</string>
+    <string name="hint_item_name">Full Name</string>
 
     <!-- Text hint for breed field in the editor [CHAR LIMIT=30] -->
     <string name="hint_item_description">Description</string>
 
     <!-- Text hint for name field in the editor [CHAR LIMIT=30] -->
     <string name="hint_item_age">Age</string>
+
+    <!-- Text hint for allergies field in the editor [CHAR LIMIT=30] -->
+    <string name="hint_item_allergies">Any allergies?</string>
+
+    <!-- Text hint for nationality field in the editor [CHAR LIMIT=30] -->
+    <string name="hint_item_nationality">Nationality?</string>
+
+    <!-- Text hint for language field in the editor [CHAR LIMIT=30] -->
+    <string name="hint_item_language">You may list them</string>
+
+    <!-- Text hint for contact field in the editor [CHAR LIMIT=30] -->
+    <string name="hint_item_contact">Mobile number</string>
 
     <!-- Units for weight of the item (kilograms) [CHAR LIMIT=5] -->
     <string name="unit_item_yo">y.o</string>

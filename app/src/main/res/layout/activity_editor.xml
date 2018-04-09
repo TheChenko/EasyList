@@ -78,7 +78,8 @@
         android:id="@+id/container_measurement"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginBottom="10dp">
 
         <!-- Label -->
         <TextView
@@ -95,7 +96,6 @@
             <!-- Age field -->
             <EditText
                 android:id="@+id/edit_age"
-                android:hint="@string/hint_item_age"
                 android:inputType="number"
                 style="@style/EditorFieldStyle" />
 
@@ -104,6 +104,121 @@
                 android:id="@+id/label_weight_units"
                 android:text="@string/unit_item_yo"
                 style="@style/EditorUnitsStyle"/>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <!-- Allergies category -->
+    <LinearLayout
+        android:id="@+id/container_allergies"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="10dp">
+
+        <!-- Label -->
+        <TextView
+            android:text="@string/category_allergies"
+            style="@style/CategoryStyle" />
+
+        <!-- Input fields -->
+        <RelativeLayout
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:paddingLeft="4dp">
+
+            <!-- Allergies field -->
+            <EditText
+                android:id="@+id/edit_allergies"
+                android:inputType="textCapWords"
+                style="@style/EditorFieldStyle" />
+
+        </RelativeLayout>
+    </LinearLayout>
+
+    <!-- Nationality category -->
+    <LinearLayout
+        android:id="@+id/container_nationality"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="10dp">
+
+        <!-- Label -->
+        <TextView
+            android:text="@string/category_nationality"
+            style="@style/CategoryStyle" />
+
+        <!-- Input fields -->
+        <RelativeLayout
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:paddingLeft="4dp">
+
+            <!-- Allergies field -->
+            <EditText
+                android:id="@+id/edit_nationality"
+                android:inputType="textCapWords"
+                style="@style/EditorFieldStyle" />
+
+        </RelativeLayout>
+    </LinearLayout>
+
+    <!-- Language category -->
+    <LinearLayout
+        android:id="@+id/container_language"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="10dp">
+
+        <!-- Label -->
+        <TextView
+            android:text="@string/category_language"
+            style="@style/CategoryStyle" />
+
+        <!-- Input fields -->
+        <RelativeLayout
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:paddingLeft="4dp">
+
+            <!-- Allergies field -->
+            <EditText
+                android:id="@+id/edit_language"
+                android:inputType="textCapWords"
+                style="@style/EditorFieldStyle" />
+
+        </RelativeLayout>
+    </LinearLayout>
+
+    <!-- Contact category -->
+    <LinearLayout
+        android:id="@+id/container_contact"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <!-- Label -->
+        <TextView
+            android:text="@string/category_contact"
+            style="@style/CategoryStyle" />
+
+        <!-- Input fields -->
+        <RelativeLayout
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:paddingLeft="4dp">
+
+            <!-- Allergies field -->
+            <EditText
+                android:id="@+id/edit_contact"
+                android:inputType="number"
+                style="@style/EditorFieldStyle" />
+
         </RelativeLayout>
     </LinearLayout>
 </LinearLayout>
