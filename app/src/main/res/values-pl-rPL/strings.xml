@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">" Łatwa lista"</string>
+    <string name="action_insert_dummy_data">Wstaw dane zastępcze</string>
+    <string name="action_delete_all_entries">Usuń wszystko</string>
+    <string name="empty_view_title_text">Jest tu trochę samotny</string>
+    <string name="empty_view_subtitle_text">Zacznij od dodania nowego elementu</string>
+    <string name="editor_activity_title_new_item">Dodaj</string>
+    <string name="editor_activity_title_edit">Edytować</string>
+    <string name="action_save">Zapisać</string>
+    <string name="action_delete">Usuń</string>
+    <string name="editor_insert_successful">Element zapisany</string>
+    <string name="editor_insert_failed">Błąd podczas zapisywania elementu</string>
+    <string name="editor_update_successful">Produkt zaktualizowany</string>
+    <string name="editor_update_failed">Błąd podczas aktualizowania elementu</string>
+    <string name="unsaved_changes_dialog_msg">Odrzucić zmiany i zakończyć edytowanie?</string>
+    <string name="discard">Odrzuć</string>
+    <string name="keep_editing">Kontynuuj edycję</string>
+    <string name="editor_delete_successful">"Usunięto element "</string>
+    <string name="editor_delete_failed">Błąd podczas usuwania elementu</string>
+    <string name="delete_dialog_msg">Usunąć ten element?</string>
+    <string name="delete">Usuń</string>
+    <string name="cancel">Anuluj</string>
+    <string name="category_overview">Przegląd</string>
+    <string name="category_gender">Płeć</string>
+    <string name="category_age">Wiek</string>
+    <string name="category_allergies">Alergie</string>
+    <string name="category_nationality">Narodowość</string>
+    <string name="category_language">Język mówiony</string>
+    <string name="category_contact">Numer kontaktowy</string>
+    <string name="hint_item_name">Pełne imię i nazwisko</string>
+    <string name="hint_item_description">Opis</string>
+    <string name="unit_item_yo">lat</string>
+    <string name="gender_unknown">Nieznany</string>
+    <string name="gender_male">Męski</string>
+    <string name="gender_female">Płeć żeńska</string>
+    <string name="unknown_desc">Bez opisu</string>
+</resources>

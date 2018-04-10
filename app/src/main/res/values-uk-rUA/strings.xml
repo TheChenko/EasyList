@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Легкий список</string>
+    <string name="action_insert_dummy_data">Вставити фіктивні дані</string>
+    <string name="action_delete_all_entries">Видалити все</string>
+    <string name="empty_view_title_text">Тут трохи самотня тут</string>
+    <string name="empty_view_subtitle_text">Почніть, додаючи новий елемент</string>
+    <string name="editor_activity_title_new_item">Додати</string>
+    <string name="editor_activity_title_edit">Редагувати</string>
+    <string name="action_save">Зберегти</string>
+    <string name="action_delete">Видалити</string>
+    <string name="editor_insert_successful">Пункт збережений</string>
+    <string name="editor_insert_failed">Помилка збереження елемента</string>
+    <string name="editor_update_successful">Пункт оновлено</string>
+    <string name="editor_update_failed">Помилка оновлення елемента</string>
+    <string name="unsaved_changes_dialog_msg">Відхилити зміни та вийти з редагування?</string>
+    <string name="discard">Відхилити</string>
+    <string name="keep_editing">Продовжуйте редагувати</string>
+    <string name="editor_delete_successful">Пункт видалено</string>
+    <string name="editor_delete_failed">Помилка видалення елемента</string>
+    <string name="delete_dialog_msg">Видалити цей елемент?</string>
+    <string name="delete">Видалити</string>
+    <string name="cancel">Скасувати</string>
+    <string name="category_overview">Огляд</string>
+    <string name="category_gender">Стать</string>
+    <string name="category_age">Вік</string>
+    <string name="category_allergies">Алергія</string>
+    <string name="category_nationality">Національність</string>
+    <string name="category_language">Мова розмовна</string>
+    <string name="category_contact">Контактний номер</string>
+    <string name="hint_item_name">Повне ім\'я</string>
+    <string name="hint_item_description">Опис</string>
+    <string name="unit_item_yo">років</string>
+    <string name="gender_unknown">Невідомий</string>
+    <string name="gender_male">Чоловік</string>
+    <string name="gender_female">Жінка</string>
+    <string name="unknown_desc">без опису</string>
+</resources>
