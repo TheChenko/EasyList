@@ -1,7 +1,7 @@
 package uk.ac.vt71brighton.easylist;
 
 /**
- * Created by volodymyrtkachenko on 12/03/2018.
+ * Created by volodymyrtkachenko.
  */
 import android.content.Context;
 import android.database.Cursor;

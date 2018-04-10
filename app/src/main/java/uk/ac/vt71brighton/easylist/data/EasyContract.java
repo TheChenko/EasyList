@@ -1,7 +1,7 @@
 package uk.ac.vt71brighton.easylist.data;
 
 /**
- * Created by volodymyrtkachenko on 12/03/2018.
+ * Created by volodymyrtkachenko.
  */
 
 import android.net.Uri;
@@ -9,7 +9,7 @@ import android.content.ContentResolver;
 import android.provider.BaseColumns;
 
 /**
- * API Contract for the Pets app.
+ * API Contract for the EasyList app.
  */
 public final class EasyContract {
 
@@ -34,8 +34,8 @@ public final class EasyContract {
     /**
      * Possible path (appended to base content URI for possible URI's)
      * For instance, content://uk.ac.vt71brighton.easylist/elist/ is a valid path for
-     * looking at list data. content://uk.ac.vt71brighton.easylist/staff/ will fail,
-     * as the ContentProvider hasn't been given any information on what to do with "staff".
+     * looking at list data. content://uk.ac.vt71brighton.easylist/lorem/ will fail,
+     * as the ContentProvider hasn't been given any information on what to do with "lorem".
      */
     public static final String PATH_EList = "elist";
 
@@ -78,7 +78,7 @@ public final class EasyContract {
         public final static String COLUMN_EL_NAME ="name";
 
         /**
-         * description of the item.
+         * Description of the item.
          *
          * Type: TEXT
          */

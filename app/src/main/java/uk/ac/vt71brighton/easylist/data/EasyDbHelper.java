@@ -1,16 +1,14 @@
 package uk.ac.vt71brighton.easylist.data;
 
 /**
- * Created by volodymyrtkachenko on 12/03/2018.
+ * Created by volodymyrtkachenko.
  */
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import uk.ac.vt71brighton.easylist.data.EasyContract.EListEntry;
 
-/**
- * Created by volodymyrtkachenko on 09/03/2018.
- */
+
 
 /**
  * Database helper for the app. Manages database creation and version management.
@@ -25,7 +23,7 @@ public class EasyDbHelper extends SQLiteOpenHelper {
     /**
      * Database version. If you change the database schema, you must increment the database version.
      */
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 1;
 
     /**
      * Constructs a new instance of {@link EasyDbHelper}.
@@ -42,7 +40,7 @@ public class EasyDbHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         // Create a String that contains the SQL statement to create the items table
-        String SQL_CREATE_PETS_TABLE =  "CREATE TABLE " + EListEntry.TABLE_NAME + " ("
+        String SQL_CREATE_EL_TABLE =  "CREATE TABLE " + EListEntry.TABLE_NAME + " ("
                 + EListEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + EListEntry.COLUMN_EL_NAME + " TEXT NOT NULL, "
                 + EListEntry.COLUMN_EL_DESC + " TEXT, "
@@ -54,7 +52,7 @@ public class EasyDbHelper extends SQLiteOpenHelper {
                 + EListEntry.COLUMN_EL_AGE + " INTEGER NOT NULL DEFAULT 0);";
 
         // Execute the SQL statement
-        db.execSQL(SQL_CREATE_PETS_TABLE);
+        db.execSQL(SQL_CREATE_EL_TABLE);
     }
 
     /**

@@ -1,7 +1,7 @@
 package uk.ac.vt71brighton.easylist;
 
 /**
- * Created by volodymyrtkachenko on 12/03/2018.
+ * Created by volodymyrtkachenko.
  */
 
 import android.app.AlertDialog;
@@ -398,7 +398,7 @@ public class EditorActivity extends AppCompatActivity implements
             String name = cursor.getString(nameColumnIndex);
             String breed = cursor.getString(breedColumnIndex);
             int gender = cursor.getInt(genderColumnIndex);
-            int weight = cursor.getInt(ageColumnIndex);
+            int age = cursor.getInt(ageColumnIndex);
             String allergies = cursor.getString(allergiesColumnIndex);
             String nationality = cursor.getString(nationalityColumnIndex);
             String lang = cursor.getString(langColumnIndex);
@@ -407,7 +407,7 @@ public class EditorActivity extends AppCompatActivity implements
             // Update the views on the screen with the values from the database
             mNameEditText.setText(name);
             mDescEditText.setText(breed);
-            mAgeEditText.setText(Integer.toString(weight));
+            mAgeEditText.setText(Integer.toString(age));
             mAllergiesEditText.setText(allergies);
             mNationalityEditText.setText(nationality);
             mLangEditText.setText(lang);

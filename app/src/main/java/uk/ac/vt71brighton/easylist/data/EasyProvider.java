@@ -1,7 +1,7 @@
 package uk.ac.vt71brighton.easylist.data;
 
 /**
- * Created by volodymyrtkachenko on 12/03/2018.
+ * Created by volodymyrtkachenko.
  */
 
 import android.content.ContentProvider;
@@ -143,9 +143,9 @@ public class EasyProvider extends ContentProvider {
             throw new IllegalArgumentException("Item requires valid gender");
         }
 
-        // If the weight is provided, check that it's greater than or equal to 0 kg
-        Integer weight = values.getAsInteger(EListEntry.COLUMN_EL_AGE);
-        if (weight != null && weight < 0) {
+        // If the age is provided, check that it's greater than or equal to 0 kg
+        Integer age = values.getAsInteger(EListEntry.COLUMN_EL_AGE);
+        if (age != null && age < 0) {
             throw new IllegalArgumentException("Item requires valid age");
         }
 
@@ -213,11 +213,11 @@ public class EasyProvider extends ContentProvider {
         }
 
         // If the {@link EListEntry.COLUMN_EL_AGE} key is present,
-        // check that the weight value is valid.
+        // check that the age value is valid.
         if (values.containsKey(EListEntry.COLUMN_EL_AGE)) {
-            // Check that the weight is greater than or equal to 0 kg
-            Integer weight = values.getAsInteger(EListEntry.COLUMN_EL_AGE);
-            if (weight != null && weight < 0) {
+            // Check that the age is greater than or equal to 0 kg
+            Integer age = values.getAsInteger(EListEntry.COLUMN_EL_AGE);
+            if (age != null && age < 0) {
                 throw new IllegalArgumentException("Item requires valid age");
             }
         }
