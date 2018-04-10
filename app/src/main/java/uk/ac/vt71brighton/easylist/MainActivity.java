@@ -142,7 +142,11 @@ public class MainActivity extends AppCompatActivity implements
         String[] projection = {
                 EListEntry._ID,
                 EListEntry.COLUMN_EL_NAME,
-                EListEntry.COLUMN_EL_DESC };
+                EListEntry.COLUMN_EL_DESC,
+                EListEntry.COLUMN_EL_ALLERGIES,
+                EListEntry.COLUMN_EL_NATIONALITY,
+                EListEntry.COLUMN_EL_LANG,
+                EListEntry.COLUMN_EL_CONTACT};
 
         // This loader will execute the ContentProvider's query method on a background thread
         return new CursorLoader(this,   // Parent activity context

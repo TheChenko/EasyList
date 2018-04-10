@@ -53,6 +53,18 @@ public class EditorActivity extends AppCompatActivity implements
     /** EditText field to enter the item gender */
     private Spinner mGenderSpinner;
 
+    /** EditText field to enter the item allergies */
+    private EditText mAllergiesEditText;
+
+    /** EditText field to enter the item nationality */
+    private EditText mNationalityEditText;
+
+    /** EditText field to enter the item language */
+    private EditText mLangEditText;
+
+    /** EditText field to enter the item contact number */
+    private EditText mContactEditText;
+
     /**
      * Gender of the item. The possible valid values are in the EasyContract.java file:
      * {@link EListEntry#GENDER_UNKNOWN}, {@link EListEntry#GENDER_MALE}, or
@@ -108,6 +120,10 @@ public class EditorActivity extends AppCompatActivity implements
         mDescEditText = findViewById(R.id.edit_desc);
         mAgeEditText = findViewById(R.id.edit_age);
         mGenderSpinner = findViewById(R.id.spinner_gender);
+        mAllergiesEditText = findViewById(R.id.edit_allergies);
+        mNationalityEditText = findViewById(R.id.edit_nationality);
+        mLangEditText = findViewById(R.id.edit_language);
+        mContactEditText = findViewById(R.id.edit_contact);
 
         // Setup OnTouchListeners on all the input fields, so we can determine if the user
         // has touched or modified them. This will let us know if there are unsaved changes
@@ -116,6 +132,10 @@ public class EditorActivity extends AppCompatActivity implements
         mDescEditText.setOnTouchListener(mTouchListener);
         mAgeEditText.setOnTouchListener(mTouchListener);
         mGenderSpinner.setOnTouchListener(mTouchListener);
+        mAllergiesEditText.setOnTouchListener(mTouchListener);
+        mNationalityEditText.setOnTouchListener(mTouchListener);
+        mLangEditText.setOnTouchListener(mTouchListener);
+        mContactEditText.setOnTouchListener(mTouchListener);
 
         setupSpinner();
     }
@@ -162,12 +182,16 @@ public class EditorActivity extends AppCompatActivity implements
     /**
      * Get user input from editor and save item into database.
      */
-    private void savePet() {
+    private void saveItem() {
         // Read from input fields
         // Use trim to eliminate leading or trailing white space
         String nameString = mNameEditText.getText().toString().trim();
         String descString = mDescEditText.getText().toString().trim();
         String ageString = mAgeEditText.getText().toString().trim();
+        String allergiesString = mAllergiesEditText.getText().toString().trim();
+        String nationalityString = mNationalityEditText.getText().toString().trim();
+        String languageString = mLangEditText.getText().toString().trim();
+        String contactString = mContactEditText.getText().toString().trim();
 
         // Check if this is supposed to be a new item
         // and check if all the fields in the editor are blank
@@ -185,13 +209,17 @@ public class EditorActivity extends AppCompatActivity implements
         values.put(EListEntry.COLUMN_EL_NAME, nameString);
         values.put(EListEntry.COLUMN_EL_DESC, descString);
         values.put(EListEntry.COLUMN_EL_GENDER, mGender);
-        // If the weight is not provided by the user, don't try to parse the string into an
+        values.put(EListEntry.COLUMN_EL_ALLERGIES, allergiesString);
+        values.put(EListEntry.COLUMN_EL_NATIONALITY, nationalityString);
+        values.put(EListEntry.COLUMN_EL_LANG, languageString);
+        values.put(EListEntry.COLUMN_EL_CONTACT, contactString);
+        // If the age is not provided by the user, don't try to parse the string into an
         // integer value. Use 0 by default.
-        int weight = 0;
+        int age = 0;
         if (!TextUtils.isEmpty(ageString)) {
-            weight = Integer.parseInt(ageString);
+            age = Integer.parseInt(ageString);
         }
-        values.put(EListEntry.COLUMN_EL_AGE, weight);
+        values.put(EListEntry.COLUMN_EL_AGE, age);
 
         // Determine if this is a new or existing item by checking if mCurrentELUri is null or not
         if (mCurrentELUri == null) {
@@ -259,7 +287,7 @@ public class EditorActivity extends AppCompatActivity implements
             // Respond to a click on the "Save" menu option
             case R.id.action_save:
                 // Save item to database
-                savePet();
+                saveItem();
                 // Exit activity
                 finish();
                 return true;
@@ -331,7 +359,11 @@ public class EditorActivity extends AppCompatActivity implements
                 EListEntry.COLUMN_EL_NAME,
                 EListEntry.COLUMN_EL_DESC,
                 EListEntry.COLUMN_EL_GENDER,
-                EListEntry.COLUMN_EL_AGE };
+                EListEntry.COLUMN_EL_AGE,
+                EListEntry.COLUMN_EL_ALLERGIES,
+                EListEntry.COLUMN_EL_NATIONALITY,
+                EListEntry.COLUMN_EL_LANG,
+                EListEntry.COLUMN_EL_CONTACT};
 
         // This loader will execute the ContentProvider's query method on a background thread
         return new CursorLoader(this,   // Parent activity context
@@ -356,18 +388,30 @@ public class EditorActivity extends AppCompatActivity implements
             int nameColumnIndex = cursor.getColumnIndex(EListEntry.COLUMN_EL_NAME);
             int breedColumnIndex = cursor.getColumnIndex(EListEntry.COLUMN_EL_DESC);
             int genderColumnIndex = cursor.getColumnIndex(EListEntry.COLUMN_EL_GENDER);
-            int weightColumnIndex = cursor.getColumnIndex(EListEntry.COLUMN_EL_AGE);
+            int ageColumnIndex = cursor.getColumnIndex(EListEntry.COLUMN_EL_AGE);
+            int allergiesColumnIndex = cursor.getColumnIndex(EListEntry.COLUMN_EL_ALLERGIES);
+            int nationalityColumnIndex = cursor.getColumnIndex(EListEntry.COLUMN_EL_NATIONALITY);
+            int langColumnIndex = cursor.getColumnIndex(EListEntry.COLUMN_EL_LANG);
+            int contactColumnIndex = cursor.getColumnIndex(EListEntry.COLUMN_EL_CONTACT);
 
             // Extract out the value from the Cursor for the given column index
             String name = cursor.getString(nameColumnIndex);
             String breed = cursor.getString(breedColumnIndex);
             int gender = cursor.getInt(genderColumnIndex);
-            int weight = cursor.getInt(weightColumnIndex);
+            int weight = cursor.getInt(ageColumnIndex);
+            String allergies = cursor.getString(allergiesColumnIndex);
+            String nationality = cursor.getString(nationalityColumnIndex);
+            String lang = cursor.getString(langColumnIndex);
+            String contact = cursor.getString(contactColumnIndex);
 
             // Update the views on the screen with the values from the database
             mNameEditText.setText(name);
             mDescEditText.setText(breed);
             mAgeEditText.setText(Integer.toString(weight));
+            mAllergiesEditText.setText(allergies);
+            mNationalityEditText.setText(nationality);
+            mLangEditText.setText(lang);
+            mContactEditText.setText(contact);
 
             // Gender is a dropdown spinner, so map the constant value from the database
             // into one of the dropdown options (0 is Unknown, 1 is Male, 2 is Female).
@@ -393,6 +437,10 @@ public class EditorActivity extends AppCompatActivity implements
         mDescEditText.setText("");
         mAgeEditText.setText("");
         mGenderSpinner.setSelection(0); // Select "Unknown" gender
+        mAllergiesEditText.setText("");
+        mNationalityEditText.setText("");
+        mLangEditText.setText("");
+        mContactEditText.setText("");
     }
 
     /**

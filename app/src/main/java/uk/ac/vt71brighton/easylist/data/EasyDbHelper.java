@@ -25,7 +25,7 @@ public class EasyDbHelper extends SQLiteOpenHelper {
     /**
      * Database version. If you change the database schema, you must increment the database version.
      */
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     /**
      * Constructs a new instance of {@link EasyDbHelper}.
@@ -46,6 +46,10 @@ public class EasyDbHelper extends SQLiteOpenHelper {
                 + EListEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + EListEntry.COLUMN_EL_NAME + " TEXT NOT NULL, "
                 + EListEntry.COLUMN_EL_DESC + " TEXT, "
+                + EListEntry.COLUMN_EL_ALLERGIES + " TEXT, "
+                + EListEntry.COLUMN_EL_NATIONALITY + " TEXT, "
+                + EListEntry.COLUMN_EL_LANG + " TEXT, "
+                + EListEntry.COLUMN_EL_CONTACT + " TEXT, "
                 + EListEntry.COLUMN_EL_GENDER + " INTEGER NOT NULL, "
                 + EListEntry.COLUMN_EL_AGE + " INTEGER NOT NULL DEFAULT 0);";
 

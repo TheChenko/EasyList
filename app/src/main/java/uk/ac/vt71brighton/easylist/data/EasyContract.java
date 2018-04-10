@@ -102,6 +102,34 @@ public final class EasyContract {
         public final static String COLUMN_EL_AGE = "age";
 
         /**
+         * Allergies.
+         *
+         * Type: TEXT
+         */
+        public final static String COLUMN_EL_ALLERGIES ="allergies";
+
+        /**
+         * Nationality.
+         *
+         * Type: TEXT
+         */
+        public final static String COLUMN_EL_NATIONALITY ="nationality";
+
+        /**
+         * Languages spoken.
+         *
+         * Type: TEXT
+         */
+        public final static String COLUMN_EL_LANG ="lang";
+
+        /**
+         * Contact number.
+         *
+         * Type: TEXT
+         */
+        public final static String COLUMN_EL_CONTACT = "contact";
+
+        /**
          * Possible values for the gender of the item.
          */
         public static final int GENDER_UNKNOWN = 0;
