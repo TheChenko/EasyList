@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity implements
         // Insert a new row for sample name into the provider using the ContentResolver.
         // Use the {@link EListEntry.CONTENT_URI} to indicate that we want to insert
         // into the items database table.
-        // Receive the new content URI that will allow us to access SAmple data in the future.
+        // Receive the new content URI that will allow us to access Sample data in the future.
         Uri newUri = getContentResolver().insert(EListEntry.CONTENT_URI, values);
     }
 
@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu options from the res/menu/menu_catalog.xml file.
+        // Inflate the menu options from the res/menu/menu_main.xml file.
         // This adds menu items to the app bar.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
